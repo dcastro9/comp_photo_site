@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Coursera - Assignment Demo</title>
+<!-- Load the CSS Files for UI Purposes -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+<style>
+
+.images-wrapper,.assignment-description {
+    position: relative;
+    box-shadow: 0px 0px 10px #666;
+    /* TODO(dcastro): Check for browser compatibility formatting. */
+    -moz-box-shadow: 0px 0px 10px #666;
+    -webkit-box-shadow: 0px 0px 10px #666;
+    -o-box-shadow: 0px 0px 10px #666;
+    -ms-box-shadow: 0px 0px 10px #666;
+    
+    border: 1px solid #666;
+    width: 1170px;
+    margin: 0 auto 5px auto;
+    padding: 20px;
+}
+
+.images-wrapper {
+    height: 275px;
+}
+
+.assignment-description {
+    height: 135px;
+    background-color: #F6F5FD;
+}
+
+.image-upload {
+    width: 33%;
+    display: inline-block;
+}
+
+.image-upload > canvas {
+    width: 266px;
+    height: 200px;
+    border: 1px solid #DDD;
+}
+
+.coding-area {
+    width: 1230px;
+    height: 500px;
+    top: 30px;
+    margin: 0 auto 0 auto;
+}
+
+.coding-table {
+    width: 100%;
+    height: 100%;
+}
+
+.coding-column {
+    position: relative;
+    height: 100%;
+    width: 60%;
+    padding: 10px;
+}
+
+.display-column {
+    position: relative;
+    height: 100%;
+    width: 40%;
+    padding: 10px;
+}
+
+.display-column > iframe {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: -2px;
+    box-shadow: 0px 0px 10px #666;
+    /* TODO(dcastro): Check for browser compatibility formatting. */
+    -moz-box-shadow: 0px 0px 10px #666;
+    -webkit-box-shadow: 0px 0px 10px #666;
+    -o-box-shadow: 0px 0px 10px #666;
+    -ms-box-shadow: 0px 0px 10px #666;
+    border: 1px solid #666;
+}
+
+.display-column > button {
+    position: absolute;
+    left: -5px;
+    bottom: 0px;
+    margin: 25px;
+}
+
+.coding-column > textarea {
+    box-shadow: 0px 0px 10px #666;
+    /* TODO(dcastro): Check for browser compatibility formatting. */
+    -moz-box-shadow: 0px 0px 10px #666;
+    -webkit-box-shadow: 0px 0px 10px #666;
+    -o-box-shadow: 0px 0px 10px #666;
+    -ms-box-shadow: 0px 0px 10px #666;
+    border: 1px solid #666;
+}
+
+.coding-column > textarea {
+    background: #272822;
+    color: white;
+    font-family: Verdana, sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+.coding-column > .js_label {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: #A1C0C4;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #555;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+}
+
+.navbar {
+    position: relative;
+}
+
+</style>
+</head>
+
+<body>
+
+    <!-- Load the menu -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Coursera - Computational Photography</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Assignment 1</a></li>
+              <li><a href="#assignment2">Assignment 2</a></li>
+              <li><a href="#assignment3">Assignment 3</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="assignment-description">
+    <h1> Assignment 1 </h1>
+    <p> This is your first assignment. Please be sure to read through the example code below in
+    order to understand it before you begin editing it. You must upload the three images we have
+    provided in Coursera, because they are of the correct aspect ratio (4:3). </p>
+    <p>If you would like to use this site with your own images, we recommend a 4:3 aspect ratio.</p>
+    </div>
+
+    <div class="images-wrapper">
+        <div class="image-upload">
+            <label id="1">Upload Image 1</label>
+            <canvas id="imageCanvas"></canvas>​
+            <input type="file" id="imageLoader" name="imageLoader"/>
+        </div>
+        <div class="image-upload">
+            <label id="2">Upload Image 2</label>
+            <canvas id="imageCanvas"></canvas>​
+            <input type="file" id="imageLoader" name="imageLoader"/>
+        </div>
+        <div class="image-upload">
+            <label id="3">Upload Image 3</label>
+            <canvas id="imageCanvas"></canvas>​
+            <input type="file" id="imageLoader" name="imageLoader"/>
+        </div>
+    </div>
+
+    <div class="coding-area">
+        <table class="coding-table">
+                <tr>
+                    <!-- Javascript -->
+                    <td class="coding-column">
+                        <div class="js_label"> Javascript </div>
+<!-- Text area is sensitive to spaces. -->
+<textarea onfocus="$('.js_label').fadeOut();" onblur="$('.js_label').fadeIn();">
+// This is the code that you must edit. We support Javascript and JQuery 1.8.
+// The code will not run until you have uploaded three images.
+
+// CSS Width and Height
+var width = $("#finalImage").width();
+var height = $("#finalImage").height();
+
+// We automatically resize the images you upload. Recommended ratio is 4:3.
+var img1 = context[0].getImageData(0,0, width, height); // Image 1
+var img2 = context[1].getImageData(0,0, width, height); // Image 2
+var img3 = context[2].getImageData(0,0, width, height); // Image 3
+
+// These are one-dimensional arrays of the RGBA pixel data from 0 to 255.
+var img1data = img1.data;
+var img2data = img2.data;
+var img3data = img3.data;
+
+// Load the canvas.
+var outCvs = $("#finalImage")[0];
+outCvs.width = width;
+outCvs.height = height;
+
+// Load the context and the output image data.
+var outCtx = outCvs.getContext('2d');
+var outImg = outCtx.createImageData(width, height); // Creates the output image.
+var outImgData = outImg.data;
+
+// This is a for loop which iterates through every pixel in the image.
+for (var y = 0; y < outImg.height; y++) {
+    for (var x = 0; x < outImg.width; x++) {
+        // These are the pointers for each of the channels at the current pixel.
+        var red = (y * outImg.width + x) * 4;
+        var green = red + 1;
+        var blue = red + 2;
+        var alpha = red + 3;
+
+        // This sets the red channel data from img1, green from img2, and blue from img3 to the
+        // output image.
+        outImgData[red] = img1data[red];
+        outImgData[green] = img2data[green];
+        outImgData[blue] = img3data[blue];
+        outImgData[alpha] = 255;
+    }
+}
+
+// Save the output image.
+outCtx.putImageData(outImg, 0, 0);
+</textarea>
+                    </td>
+
+                    <!-- iFrame -->
+                    <td class="display-column">
+                        <iframe> </iframe>
+                        <button class="btn btn-info" onclick="updateIFrame();"> Run code! </button>
+                    </td>
+                </tr>
+        </table>
+    </div>
+    <!-- Load Javascript last so the page loads faster. -->
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    // Create variables to store uploaded images.
+    var uploads = ["","","",""]; // Array of images.
+
+    // Add Event Listeners
+    // TODO(dcastro): Change to loop, was on plane w/o internet, couldn't figure this part out.
+    var inputs = $(".image-upload > input");
+    inputs[0].addEventListener("change", handleImage, false);
+    inputs[1].addEventListener("change", handleImage, false);
+    inputs[2].addEventListener("change", handleImage, false);
+
+    // Eventually add a check for proper filename.
+    function handleImage(e){
+        // TODO(dcastro): Improve how I do this (don't do this by item order in the future).
+        var canvas = e.srcElement.parentElement.children.item(1);
+        var labelID = e.srcElement.parentElement.children.item(0).id;
+        var ctx = canvas.getContext('2d');
+        var reader = new FileReader();
+        reader.onload = function(event){
+            var img = new Image();
+            img.onload = function(){
+                // setting the canvas width and height resizes the image.
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            }
+            // Save results for iframe.
+            uploads[labelID - 1] = event.target.result;
+            img.src = event.target.result;
+        }
+
+        reader.readAsDataURL(e.target.files[0]);
+
+    }
+
+    function updateIFrame() {
+        // Define general width and height for processing images.
+        var cvsWidth = "440";
+        var cvsHeight = "330";
+        var iframe = $("iframe")[0];
+        // The javascript code from the text input.
+        var jstext = $("textarea").val();
+        // The splitting of this is done purposefully.
+        // Lookup 'why split script tag in document.write' for explanation. 
+        var jquery = "<script src='js/jquery-1.8.2.min.js'><" + "/script>";
+        var canvasJS = "var canvas = [];" +
+                       "canvas[0] = document.createElement('canvas');" +
+                       "canvas[0].width = " + cvsWidth + "; canvas[0].height = " + cvsHeight + ";" +
+                       "canvas[1] = document.createElement('canvas');" +
+                       "canvas[1].width = " + cvsWidth + "; canvas[1].height = " + cvsHeight + ";" +
+                       "canvas[2] = document.createElement('canvas');" +
+                       "canvas[2].width = " + cvsWidth + "; canvas[2].height = " + cvsHeight + ";";
+        var contextJS = "var context = [];" +
+                        "context[0] = canvas[0].getContext('2d');" +
+                        "context[1] = canvas[1].getContext('2d');" +
+                        "context[2] = canvas[2].getContext('2d');";
+        var imageJS = "var images = [];" +
+                      "images[0] = new Image();" +
+                      "images[1] = new Image();" +
+                      "images[2] = new Image();" +
+                      "images[0].onload = function() {" +
+                            "context[0].drawImage(images[0], 0, 0, canvas[0].width, canvas[0].height);" +
+                            "images[1].src = '" + uploads[1] + "';" +
+                      "};" +
+                      "images[1].onload = function() {" +
+                            "context[1].drawImage(images[1], 0, 0, canvas[1].width, canvas[1].height);" +
+                            "images[2].src = '" + uploads[2] + "';" +
+                      "};" +
+                      "images[2].onload = function() {" +
+                            "context[2].drawImage(images[2], 0, 0, canvas[2].width, canvas[2].height);" +
+                            jstext +
+                      "};";
+        var loadImageJS = "images[0].src = '" + uploads[0] + "';";
+        
+
+        var css = "<style>h1 { font-family: Verdana; color: #444; } canvas { width: " + cvsWidth + "px; height: " + cvsHeight + "px; }</style>";
+
+        /* Adapted from wJSNova */
+        if(iframe.contentDocument) doc = iframe.contentDocument;
+        else if(iframe.contentWindow) doc = iframe.contentWindow.document;
+        else doc = iframe.document;
+
+        doc.open();
+        doc.writeln("<html><head>" + css + "</head><body><h1> Final image: </h1><canvas id='finalImage'></canvas>" + jquery + '<script type="text/javascript">' + canvasJS + contextJS + imageJS + loadImageJS + '</' + "script></body></html>");
+        doc.close();
+    }
+
+    // Load the iframe.
+    $(document).ready(function() {
+        updateIFrame();
+    });
+    </script>
+</body>
+</html>
