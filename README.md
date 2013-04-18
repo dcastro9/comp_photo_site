@@ -1,4 +1,4 @@
 comp_photo_site
 ===============
 
-Computational Photography Website for Coursera
+Playing around with Javascript, editing of images in browser.
